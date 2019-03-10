@@ -2,6 +2,8 @@ package main;
 
 public class Frame {
     private int frameScore = 0;
+    private int firstScore = 0;
+    private int secondScore = 0;
 
     private Boolean isSpare = false;
     private Boolean isStrike = false;
@@ -48,5 +50,21 @@ public class Frame {
 
     public void setStrike(Boolean strike) {
         isStrike = strike;
+    }
+
+    public int getFirstScore() {
+        return firstScore;
+    }
+
+    public void setFirstScore(int firstScore) {
+        this.firstScore = firstScore;
+    }
+
+    public int getSecondScore() {
+        return secondScore;
+    }
+
+    public void setSecondScore(int secondScore) {
+        this.secondScore = secondScore;
     }
 }

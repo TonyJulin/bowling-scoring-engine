@@ -31,25 +31,25 @@ public class BowlingTest {
 
         frame = bowling.calculateFirstRoll("X", frame);
         Assert.assertTrue(frame.getStrike());
-        Assert.assertEquals(0, frame.getFrameScore());
+        Assert.assertEquals(0, frame.getFirstScore());
         Assert.assertFalse(frame.getSpare());
 
         frame = new Frame();
         frame = bowling.calculateFirstRoll("/", frame);
         Assert.assertFalse(frame.getStrike());
-        Assert.assertEquals(0, frame.getFrameScore());
+        Assert.assertEquals(0, frame.getFirstScore());
         Assert.assertFalse(frame.getSpare());
 
         frame = new Frame();
         frame = bowling.calculateFirstRoll("9", frame);
         Assert.assertFalse(frame.getStrike());
-        Assert.assertEquals(9, frame.getFrameScore());
+        Assert.assertEquals(9, frame.getFirstScore());
         Assert.assertFalse(frame.getSpare());
 
         frame = new Frame();
         frame = bowling.calculateFirstRoll("abcd", frame);
         Assert.assertFalse(frame.getStrike());
-        Assert.assertEquals(0, frame.getFrameScore());
+        Assert.assertEquals(0, frame.getFirstScore());
         Assert.assertFalse(frame.getSpare());
     }
 
@@ -88,15 +88,14 @@ public class BowlingTest {
         Frame frame = new Frame();
 
         frame = bowling.calculateSecondRoll("9", frame);
-        Assert.assertEquals(9, frame.getFrameScore());
+        Assert.assertEquals(9, frame.getSecondScore());
 
-        frame.setFrameScore(6);
         frame = bowling.calculateSecondRoll("4", frame);
-        Assert.assertEquals(10, frame.getFrameScore());
+        Assert.assertEquals(4, frame.getSecondScore());
 
-        frame.setFrameScore(5);
-        frame = bowling.calculateSecondRoll("6", frame);
-        Assert.assertEquals(5, frame.getFrameScore());
+        frame.setSecondScore(0);
+        frame = bowling.calculateSecondRoll("10", frame);
+        Assert.assertEquals(0, frame.getSecondScore());
     }
 
     @Test
@@ -105,10 +104,6 @@ public class BowlingTest {
         Frame frame = new Frame();
 
         frame = bowling.calculateSecondRoll("abcd", frame);
-        Assert.assertEquals(0, frame.getFrameScore());
-
-        frame.setFrameScore(9);
-        frame = bowling.calculateSecondRoll("abcd", frame);
-        Assert.assertEquals(9, frame.getFrameScore());
+        Assert.assertEquals(0, frame.getSecondScore());
     }
 }

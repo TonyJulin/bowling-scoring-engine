@@ -45,7 +45,7 @@ public class Bowling {
             frameNumber++;
         }
 
-//        totalScore = calculateTotalScore(frames);
+        totalScore = calculateTotalScore(frames);
         return totalScore;
     }
 
@@ -54,12 +54,12 @@ public class Bowling {
             frame.setStrike(true);
         } else if (input.equals(SPARE)) {
             System.out.println("Cannot get a spare on the first roll of a frame. Score for this roll will be set to 0.");
-            frame.setFrameScore(0);
+            frame.setFirstScore(0);
         } else if (input.matches("[0-9]")) {
-            frame.setFrameScore(Integer.parseInt(input));
+            frame.setFirstScore(Integer.parseInt(input));
         } else {
             System.out.println("Invalid input: " + input + " - Score for the first roll will be set to 0.");
-            frame.setFrameScore(0);
+            frame.setFirstScore(0);
         }
 
         return frame;
@@ -72,38 +72,38 @@ public class Bowling {
             frame.setSpare(true);
         } else if (input.matches("[0-9]")) {
             int parsedInput = Integer.parseInt(input);
-            int totalFrameScore = frame.getFrameScore() + parsedInput;
-            if (totalFrameScore > 10) {
-                System.out.println("Score for this frame is greater than 10. Total score for this frame set to the first roll score.");
-            } else {
-                frame.setFrameScore(totalFrameScore);
-            }
+            frame.setSecondScore(parsedInput);
         } else {
             System.out.println("Invalid input for the second roll: " + input);
         }
 
         return frame;
     }
-//
-//    public int calculateTotalScore(List<Frame> frames) {
-//        int totalScore = 0;
-//        for (int i = 0; i < frames.size(); i++) {
-//            Frame currentFrame = frames.get(i);
-//            if (i < frames.size() - 1) {
-//                totalScore += calculateFrameScore(currentFrame, frames.get(i + 1));
-//            } else {
-//
-//            }
-//        }
-//
-//        return totalScore;
-//    }
 
-//    public int calculateFrameScore(Frame frame, Frame nextFrame) {
-//        if(frame.getSpare()) {
-//
-//        } else if (frame.getStrike()) {
-//
-//        }
-//    }
+    public int calculateTotalScore(List<Frame> frames) {
+        int totalScore = 0;
+        for (int i = 0; i < frames.size(); i++) {
+            Frame currentFrame = frames.get(i);
+            if (i < frames.size() - 1) {
+                totalScore += calculateFrameScore(currentFrame, frames.get(i + 1));
+            } else {
+
+            }
+        }
+
+        return totalScore;
+    }
+
+    public int calculateFrameScore(Frame frame, Frame nextFrame) {
+        if(frame.getSpare()) {
+            return 10 + openScore(nextFrame);
+        } else if (frame.getStrike()) {
+//            return 10 +
+        }
+        return frame.getFrameScore();
+    }
+
+    public int openScore(Frame nextFrame) {
+        return 0;
+    }
 }
