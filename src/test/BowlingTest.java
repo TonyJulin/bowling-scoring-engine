@@ -1,6 +1,7 @@
 package test;
 
 import main.Bowling;
+import main.Frame;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,5 +30,17 @@ public class BowlingTest {
 
         score = bowling.calculateScore("abf");
         Assert.assertEquals(0, score);
+    }
+
+    @Test
+    public void testFrame() {
+        Frame frame = new Frame();
+        frame.setFrameScore(10);
+        frame.setFirstShot("9");
+        frame.setSecondShot("/");
+
+        Assert.assertEquals(10, frame.getFrameScore());
+        Assert.assertEquals("9", frame.getFirstShot());
+        Assert.assertEquals("/", frame.getSecondShot());
     }
 }
