@@ -6,8 +6,8 @@ public class Frame {
     private Boolean isSpare = false;
     private Boolean isStrike = false;
 
-    private Frame previousFrame;
-    private Frame nextFrame;
+    private Frame previousFrame = null;
+    private Frame nextFrame = null;
 
     public int getFrameScore() {
         return frameScore;

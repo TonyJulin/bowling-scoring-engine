@@ -44,5 +44,19 @@ public class BowlingTest {
         Assert.assertFalse(frame.getSpare());
         frame.setSpare(true);
         Assert.assertTrue(frame.getSpare());
+
+        Assert.assertNull(frame.getPreviousFrame());
+        Assert.assertNull(frame.getNextFrame());
+    }
+
+    @Test
+    public void testFirstRoll() {
+        Bowling bowling = new Bowling();
+        Frame frame = new Frame();
+
+        frame = bowling.calculateFirstRoll("X", frame);
+        Assert.assertTrue(frame.getStrike());
+        Assert.assertEquals(0, frame.getFrameScore());
+        Assert.assertFalse(frame.getSpare());
     }
 }
