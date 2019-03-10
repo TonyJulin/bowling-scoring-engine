@@ -11,7 +11,6 @@ public class Bowling {
     private static final String QUIT = "q";
 
 
-
     public static void main(String[] args) {
         Bowling bowling = new Bowling();
         bowling.printInstructions();
@@ -85,22 +84,36 @@ public class Bowling {
         for (int i = 0; i < frames.size(); i++) {
             Frame currentFrame = frames.get(i);
             if (i < frames.size() - 1) {
-                totalScore += calculateFrameScore(currentFrame, frames.get(i + 1));
+                Frame nextFrame = frames.get(i + 1);
+                totalScore += calculateFrameScore(currentFrame, nextFrame);
             } else {
 
             }
         }
-
         return totalScore;
     }
 
     public int calculateFrameScore(Frame frame, Frame nextFrame) {
-        if(frame.getSpare()) {
-            return 10 + openScore(nextFrame);
+        if (frame.getSpare()) {
+            return 10 + calculateSpare(nextFrame);
         } else if (frame.getStrike()) {
-//            return 10 +
+
         }
-        return frame.getFrameScore();
+            return frame.getFirstScore() + frame.getSecondScore();
+    }
+
+    private int calculateSpare(Frame frame) {
+        if(frame.getStrike()) {
+            return 10;
+        } else {
+            return frame.getFirstScore();
+        }
+    }
+
+    public int frameScore(Frame frame) {
+        if(frame.getStrike()) {
+
+        }
     }
 
     public int openScore(Frame nextFrame) {

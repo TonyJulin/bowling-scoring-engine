@@ -1,40 +1,11 @@
 package main;
 
 public class Frame {
-    private int frameScore = 0;
     private int firstScore = 0;
     private int secondScore = 0;
 
     private Boolean isSpare = false;
     private Boolean isStrike = false;
-
-    private Frame previousFrame = null;
-    private Frame nextFrame = null;
-
-    public int getFrameScore() {
-        return frameScore;
-    }
-
-    public void setFrameScore(int score) {
-        frameScore = score;
-    }
-
-
-    public Frame getPreviousFrame() {
-        return previousFrame;
-    }
-
-    public void setPreviousFrame(Frame previousFrame) {
-        this.previousFrame = previousFrame;
-    }
-
-    public Frame getNextFrame() {
-        return nextFrame;
-    }
-
-    public void setNextFrame(Frame nextFrame) {
-        this.nextFrame = nextFrame;
-    }
 
     public Boolean getSpare() {
         return isSpare;
