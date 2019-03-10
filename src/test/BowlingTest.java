@@ -3,14 +3,59 @@ package test;
 import main.Bowling;
 import main.Frame;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 public class BowlingTest {
+    Bowling bowling;
+    Frame frame;
+
+    @Before
+    public void initialize() {
+        bowling = new Bowling();
+        frame = new Frame();
+    }
+
+    @Test
+    public void testPlay() {
+        String rollOne = "5";
+        InputStream in = new ByteArrayInputStream(rollOne.getBytes());
+        System.setIn(in);
+
+        String rollTwo = "4";
+        InputStream in2 = new ByteArrayInputStream(rollTwo.getBytes());
+        System.setIn(in2);
+
+        String quit = "q";
+        InputStream in3 = new ByteArrayInputStream(quit.getBytes());
+        System.setIn(in3);
+
+        Assert.assertEquals(9, bowling.play());
+    }
+
+    @Test
+    public void testPlaySpare() {
+
+    }
+
+    @Test
+    public void testPlayStrike() {
+
+    }
+
+    @Test
+    public void testPlayUnfinished() {
+
+    }
     @Test
     public void testFrame() {
         Frame frame = new Frame();
-        frame.setFrameScore(10);
-        Assert.assertEquals(10, frame.getFrameScore());
+        frame.setFirstScore(10);
+        Assert.assertEquals(10, frame.getFirstScore());
 
         Assert.assertFalse(frame.getStrike());
         frame.setStrike(true);
@@ -19,9 +64,6 @@ public class BowlingTest {
         Assert.assertFalse(frame.getSpare());
         frame.setSpare(true);
         Assert.assertTrue(frame.getSpare());
-
-        Assert.assertNull(frame.getPreviousFrame());
-        Assert.assertNull(frame.getNextFrame());
     }
 
     @Test
@@ -59,11 +101,11 @@ public class BowlingTest {
         Frame frame = new Frame();
 
         // Verify Strike
-        frame.setFrameScore(2);
+        frame.setFirstScore(0);
         frame = bowling.calculateSecondRoll("X", frame);
         Assert.assertFalse(frame.getStrike());
 
-        frame.setFrameScore(0);
+        frame.setSecondScore(2);
         frame = bowling.calculateSecondRoll("X", frame);
         Assert.assertFalse(frame.getStrike());
     }
@@ -77,7 +119,7 @@ public class BowlingTest {
         Assert.assertTrue(frame.getSpare());
 
         frame = new Frame();
-        frame.setFrameScore(5);
+        frame.setFirstScore(5);
         frame = bowling.calculateSecondRoll("/", frame);
         Assert.assertTrue(frame.getSpare());
     }
