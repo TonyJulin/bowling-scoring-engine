@@ -20,7 +20,20 @@ public class Bowling {
     }
 
     private void printInstructions() {
-        System.out.println("***Instructions***");
+        System.out.println("*****Instructions*****\nYou get two rolls for each frame (Unless a strike is scored). The valid commands are are:\n" +
+                "'X' or 'x': Strike\n" +
+                "'/': Spare\n" +
+                "'[0-9]': Knock down number of pins from 0 to 9\n" +
+                "'q': Quit\n-----------------\n" +
+                "A strike is scored as ten plus the sum of the next two rolls. A spare is scored as 10 plus your next roll.\n" +
+                "An open frame is when less than 10 pins have been knocked down in two attempts, the score is the sum of the pins.\n" +
+                "Invalid inputs will receive a score of 0 on that roll and the game will continue.\n-----------------\n" +
+                "***Tenth Frame Rules***\n" +
+                "-If you roll a strike in the first shot of the 10th frame, you get 2 more shots.\n" +
+                "-If you roll a spare in the first two shots of the 10th frame, you get 1 more shot.\n" +
+                "-If you leave the 10th frame open after two shots, the game is over and you do not get an additional shot." +
+                "To quit at any point, just hit 'q' and the score up to that frame will be tallied\n" +
+                "HAVE FUN!");
     }
 
     public int play() {
@@ -173,7 +186,7 @@ public class Bowling {
             if (i < 9) {
                 totalScore += calculateFrameScore(frames, i);
             } else {
-
+                totalScore += frames.get(i).getFrameScore();
             }
         }
         return totalScore;
