@@ -58,5 +58,23 @@ public class BowlingTest {
         Assert.assertTrue(frame.getStrike());
         Assert.assertEquals(0, frame.getFrameScore());
         Assert.assertFalse(frame.getSpare());
+
+        frame = new Frame();
+        frame = bowling.calculateFirstRoll("/", frame);
+        Assert.assertFalse(frame.getStrike());
+        Assert.assertEquals(0, frame.getFrameScore());
+        Assert.assertFalse(frame.getSpare());
+
+        frame = new Frame();
+        frame = bowling.calculateFirstRoll("9", frame);
+        Assert.assertFalse(frame.getStrike());
+        Assert.assertEquals(9, frame.getFrameScore());
+        Assert.assertFalse(frame.getSpare());
+
+        frame = new Frame();
+        frame = bowling.calculateFirstRoll("abcd", frame);
+        Assert.assertFalse(frame.getStrike());
+        Assert.assertEquals(0, frame.getFrameScore());
+        Assert.assertFalse(frame.getSpare());
     }
 }

@@ -33,7 +33,7 @@ public class Bowling {
         while (frameNumber < 10 && !input.equals(QUIT)) {
             Frame frame = new Frame();
             frame = calculateFirstRoll(input, frame);
-            frame =  calculateSecondRoll(input, frame);
+            frame = calculateSecondRoll(input, frame);
 
             input = scanner.next();
             frameNumber++;
@@ -47,12 +47,12 @@ public class Bowling {
         if (input.equals(STRIKE_UPPER) || input.equals(STRIKE_LOWER)) {
             frame.setStrike(true);
         } else if (input.equals(SPARE)) {
-            System.out.println("Cannot get a spare on the first roll. Score for this roll will be set to 0.");
+            System.out.println("Cannot get a spare on the first roll of a frame. Score for this roll will be set to 0.");
             frame.setFrameScore(0);
         } else if (input.matches("[0-9]")) {
             frame.setFrameScore(Integer.parseInt(input));
         } else {
-            System.out.println("Invalid input. Score for the first roll will be set to 0.");
+            System.out.println("Invalid input: " + input + " - Score for the first roll will be set to 0.");
             frame.setFrameScore(0);
         }
 
@@ -60,6 +60,21 @@ public class Bowling {
     }
 
     private Frame calculateSecondRoll(String input, Frame frame) {
+        if (input.equals(STRIKE_UPPER) || input.equals(STRIKE_LOWER)) {
+            System.out.println("Cannot get a strike on the second roll of a frame. Score for this roll is 0.");
+        } else if (input.equals("SPARE")) {
+            frame.setSpare(true);
+        } else if (input.matches("[0-9]")) {
+            int parsedInput = Integer.parseInt(input);
+            int totalFrameScore = frame.getFrameScore() + parsedInput;
+            if (totalFrameScore > 10) {
+                System.out.println("Score for this frame is greater than 10. Total score for this frame set to the first roll score.");
+            } else {
+                frame.setFrameScore(totalFrameScore);
+            }
+        } else {
+            System.out.println("Invalid input for the second roll: " + input);
+        }
         return frame;
     }
 }
