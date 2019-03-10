@@ -10,12 +10,14 @@ public class Bowling {
     private static final String SPARE = "/";
     private static final String QUIT = "q";
 
+
+
     public static void main(String[] args) {
         Bowling bowling = new Bowling();
         bowling.printInstructions();
 
         int score = bowling.play();
-        System.out.println("calculateFirstRoll: " + score);
+        System.out.println("Total Score: " + score);
     }
 
     private void printInstructions() {
@@ -42,8 +44,8 @@ public class Bowling {
             input = scanner.next();
             frameNumber++;
         }
-        
-        totalScore = calculateScore(frames);
+
+//        totalScore = calculateTotalScore(frames);
         return totalScore;
     }
 
@@ -65,17 +67,9 @@ public class Bowling {
 
     public Frame calculateSecondRoll(String input, Frame frame) {
         if (input.equals(STRIKE_UPPER) || input.equals(STRIKE_LOWER)) {
-            if (frame.getFrameScore() == 0) {
-                frame.setStrike(true);
-            } else {
-                System.out.println("Cannot score a strike with pins already knocked down. No points added to score.");
-            }
+            System.out.println("Cannot score a strike on the second roll.");
         } else if (input.equals(SPARE)) {
-            if (frame.getFrameScore() > 0) {
-                frame.setSpare(true);
-            } else {
-                System.out.println("Cannot score a spare with no pins knocked down. No points added to score");
-            }
+            frame.setSpare(true);
         } else if (input.matches("[0-9]")) {
             int parsedInput = Integer.parseInt(input);
             int totalFrameScore = frame.getFrameScore() + parsedInput;
@@ -90,8 +84,26 @@ public class Bowling {
 
         return frame;
     }
+//
+//    public int calculateTotalScore(List<Frame> frames) {
+//        int totalScore = 0;
+//        for (int i = 0; i < frames.size(); i++) {
+//            Frame currentFrame = frames.get(i);
+//            if (i < frames.size() - 1) {
+//                totalScore += calculateFrameScore(currentFrame, frames.get(i + 1));
+//            } else {
+//
+//            }
+//        }
+//
+//        return totalScore;
+//    }
 
-    public int calculateScore(List<Frame> frames) {
-        return 0;
-    }
+//    public int calculateFrameScore(Frame frame, Frame nextFrame) {
+//        if(frame.getSpare()) {
+//
+//        } else if (frame.getStrike()) {
+//
+//        }
+//    }
 }

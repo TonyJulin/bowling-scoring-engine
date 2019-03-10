@@ -6,31 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class BowlingTest {
-
-
-    @Test
-    public void testScore() {
-//        Bowling bowling = new Bowling();
-//
-//        int score = bowling.calculateFirstRoll("X");
-//        Assert.assertEquals(3, score);
-//        score = bowling.calculateFirstRoll("x");
-//        Assert.assertEquals(3, score);
-//
-//        score = bowling.calculateFirstRoll("/");
-//        Assert.assertEquals(2, score);
-//
-//        score = bowling.calculateFirstRoll("0");
-//        Assert.assertEquals(1, score);
-//        score = bowling.calculateFirstRoll("6");
-//        Assert.assertEquals(1, score);
-//        score = bowling.calculateFirstRoll("9");
-//        Assert.assertEquals(1, score);
-//
-//        score = bowling.calculateFirstRoll("abf");
-//        Assert.assertEquals(0, score);
-    }
-
     @Test
     public void testFrame() {
         Frame frame = new Frame();
@@ -90,7 +65,7 @@ public class BowlingTest {
 
         frame.setFrameScore(0);
         frame = bowling.calculateSecondRoll("X", frame);
-        Assert.assertTrue(frame.getStrike());
+        Assert.assertFalse(frame.getStrike());
     }
 
     @Test
@@ -99,8 +74,9 @@ public class BowlingTest {
         Frame frame = new Frame();
 
         frame = bowling.calculateSecondRoll("/", frame);
-        Assert.assertFalse(frame.getSpare());
+        Assert.assertTrue(frame.getSpare());
 
+        frame = new Frame();
         frame.setFrameScore(5);
         frame = bowling.calculateSecondRoll("/", frame);
         Assert.assertTrue(frame.getSpare());
