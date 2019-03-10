@@ -25,28 +25,28 @@ public class Bowling {
 
     public int play() {
         List<Frame> frames = new ArrayList<>();
-        int frameNumber = 0;
-        String input = "";
+        int frameNumber = 1;
+        String input;
 
         Scanner scanner = new Scanner(System.in);
-        while (frameNumber < 10) {
+        while (frameNumber < 11) {
             Frame frame = new Frame();
-            System.out.println("\nFrame: " + (frameNumber + 1));
+            System.out.println("\nFrame: " + frameNumber);
 
-            if(frameNumber == 9) {
-                System.out.println("First roll score: ");
-                input = scanner.next();
-                if (input.equals(QUIT)) {
-                    break;
-                } else {
-                    frame = calculateTenthFrameRoll(input, frame);
-                    frames.add(frame);
-                    break;
-                }
+            if (frameNumber == 10) {
+                frame = calculateTenthFrame(frame);
+                frames.add(frame);
+                break;
             }
 
+            System.out.println("First roll score: ");
+            input = scanner.next();
+            if (input.equals(QUIT)) {
+                break;
+            } else {
+                frame = calculateFirstRoll(input, frame);
+            }
 
-            frame = calculateFirstRoll(input, frame);
             if (!frame.getStrike()) {
                 System.out.println("Second roll score: ");
                 input = scanner.next();
@@ -64,8 +64,35 @@ public class Bowling {
         return totalScore;
     }
 
-    private Frame calculateTenthFrameRoll(String input, Frame frame) {
-        
+    private Frame calculateTenthFrame(Frame frame) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("First roll score: ");
+        String input = scanner.next();
+        if (input.equals(QUIT)) {
+            return frame;
+        } else {
+            frame = calculateFirstRoll(input, frame);
+        }
+
+        System.out.println("Second roll score: ");
+        input = scanner.next();
+        if (input.equals(QUIT)) {
+            return frame;
+        } else {
+            frame = calculateTenthFrameSecondRoll(input, frame, frame.getStrike());
+        }
+
+        if (frame.getSpare() || frame.getStrike()) {
+            System.out.println("Third roll score: ");
+            input = scanner.next();
+            if (input.equals(QUIT)) {
+                return frame;
+            } else {
+                frame = calculateTenthFrameThirdRoll(input, frame, frame.getSpare());
+            }
+        }
+        return frame;
     }
 
     public Frame calculateFirstRoll(String input, Frame frame) {
@@ -80,7 +107,6 @@ public class Bowling {
             System.out.println("Invalid input: " + input + " - Score for the first roll will be set to 0.");
             frame.setFirstScore(0);
         }
-
         return frame;
     }
 
@@ -91,11 +117,49 @@ public class Bowling {
             frame.setSpare(true);
         } else if (input.matches("[0-9]")) {
             int parsedInput = Integer.parseInt(input);
-            if(frame.getFirstScore() + parsedInput > 10) {
+            if (frame.getFirstScore() + parsedInput > 10) {
                 System.out.println("Second roll and first roll cannot add up to more than 10. Second roll score will be 0.");
             } else {
                 frame.setSecondScore(parsedInput);
             }
+        } else {
+            System.out.println("Invalid input for the second roll: " + input);
+        }
+        return frame;
+    }
+
+    public Frame calculateTenthFrameSecondRoll(String input, Frame frame, boolean hasStrike) {
+        //Scored a second strike
+        if (hasStrike && (input.equals(STRIKE_UPPER) || input.equals(STRIKE_LOWER))) {
+            frame.setFrameScore(20);
+        } else if (input.equals(SPARE)) {
+            frame.setSpare(true);
+        } else if (input.matches("[0-9]")) {
+            int parsedInput = Integer.parseInt(input);
+            if (frame.getFirstScore() + parsedInput > 10) {
+                System.out.println("Second roll and first roll cannot add up to more than 10. Second roll score will be 0.");
+                frame.setFrameScore(frame.getFirstScore());
+            } else {
+                frame.setFrameScore(frame.getFirstScore() + parsedInput);
+            }
+        } else {
+            System.out.println("Invalid input for the second roll: " + input);
+        }
+        return frame;
+    }
+
+    public Frame calculateTenthFrameThirdRoll(String input, Frame frame, boolean hasSpare) {
+        //Scored a second spare and rolled strike on third attempty
+        if (hasSpare && (input.equals(STRIKE_UPPER) || input.equals(STRIKE_LOWER))) {
+            frame.setFrameScore(20);
+        } else if (input.equals(STRIKE_UPPER) || input.equals(STRIKE_LOWER)) {
+            frame.setFrameScore(frame.getFrameScore() + 10);
+        } else if (hasSpare && input.matches("[0-9]")) {
+            int parsedInput = Integer.parseInt(input);
+            frame.setFrameScore(10 + parsedInput);
+        } else if (input.matches("[0-9]")) {
+            int parsedInput = Integer.parseInt(input);
+            frame.setFrameScore(frame.getFrameScore() + parsedInput);
         } else {
             System.out.println("Invalid input for the second roll: " + input);
         }

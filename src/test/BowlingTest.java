@@ -4,7 +4,6 @@ import main.Bowling;
 import main.Frame;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -51,6 +50,7 @@ public class BowlingTest {
     public void testPlayUnfinished() {
 
     }
+
     @Test
     public void testFrame() {
         Frame frame = new Frame();
@@ -102,11 +102,11 @@ public class BowlingTest {
 
         // Verify Strike
         frame.setFirstScore(0);
-        frame = bowling.calculateSecondRoll("X", frame);
+        frame = bowling.calculateTenthFrameSecondRoll("X", frame);
         Assert.assertFalse(frame.getStrike());
 
         frame.setSecondScore(2);
-        frame = bowling.calculateSecondRoll("X", frame);
+        frame = bowling.calculateTenthFrameSecondRoll("X", frame);
         Assert.assertFalse(frame.getStrike());
     }
 
@@ -115,12 +115,12 @@ public class BowlingTest {
         Bowling bowling = new Bowling();
         Frame frame = new Frame();
 
-        frame = bowling.calculateSecondRoll("/", frame);
+        frame = bowling.calculateTenthFrameSecondRoll("/", frame);
         Assert.assertTrue(frame.getSpare());
 
         frame = new Frame();
         frame.setFirstScore(5);
-        frame = bowling.calculateSecondRoll("/", frame);
+        frame = bowling.calculateTenthFrameSecondRoll("/", frame);
         Assert.assertTrue(frame.getSpare());
     }
 
@@ -129,14 +129,14 @@ public class BowlingTest {
         Bowling bowling = new Bowling();
         Frame frame = new Frame();
 
-        frame = bowling.calculateSecondRoll("9", frame);
+        frame = bowling.calculateTenthFrameSecondRoll("9", frame);
         Assert.assertEquals(9, frame.getSecondScore());
 
-        frame = bowling.calculateSecondRoll("4", frame);
+        frame = bowling.calculateTenthFrameSecondRoll("4", frame);
         Assert.assertEquals(4, frame.getSecondScore());
 
         frame.setSecondScore(0);
-        frame = bowling.calculateSecondRoll("10", frame);
+        frame = bowling.calculateTenthFrameSecondRoll("10", frame);
         Assert.assertEquals(0, frame.getSecondScore());
     }
 
@@ -145,7 +145,7 @@ public class BowlingTest {
         Bowling bowling = new Bowling();
         Frame frame = new Frame();
 
-        frame = bowling.calculateSecondRoll("abcd", frame);
+        frame = bowling.calculateTenthFrameSecondRoll("abcd", frame);
         Assert.assertEquals(0, frame.getSecondScore());
     }
 }

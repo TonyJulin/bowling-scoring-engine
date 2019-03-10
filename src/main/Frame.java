@@ -7,6 +7,8 @@ public class Frame {
     private Boolean isSpare = false;
     private Boolean isStrike = false;
 
+    private int frameScore = 0;
+
     public Boolean getSpare() {
         return isSpare;
     }
@@ -37,5 +39,13 @@ public class Frame {
 
     public void setSecondScore(int secondScore) {
         this.secondScore = secondScore;
+    }
+
+    public int getFrameScore() {
+        return frameScore;
+    }
+
+    public void setFrameScore(int frameScore) {
+        this.frameScore = frameScore;
     }
 }
