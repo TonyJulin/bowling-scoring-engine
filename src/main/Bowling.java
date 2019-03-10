@@ -15,7 +15,7 @@ public class Bowling {
         bowling.printInstructions();
 
         int score = bowling.play();
-        System.out.println("calculateScore: " + score);
+        System.out.println("calculateFirstRoll: " + score);
     }
 
     private void printInstructions() {
@@ -32,7 +32,8 @@ public class Bowling {
 
         while (frameNumber < 10 && !input.equals(QUIT)) {
             Frame frame = new Frame();
-            frame.setFrameScore(calculateScore(input));
+            frame = calculateFirstRoll(input, frame);
+            frame =  calculateSecondRoll(input, frame);
 
             input = scanner.next();
             frameNumber++;
@@ -42,18 +43,23 @@ public class Bowling {
         return totalScore;
     }
 
-    public int calculateScore(String input) {
-        int score = 0;
+    public Frame calculateFirstRoll(String input, Frame frame) {
         if (input.equals(STRIKE_UPPER) || input.equals(STRIKE_LOWER)) {
-            score = 3;
+            frame.setStrike(true);
         } else if (input.equals(SPARE)) {
-            score = 2;
+            System.out.println("Cannot get a spare on the first roll. Score for this roll will be set to 0.");
+            frame.setFrameScore(0);
         } else if (input.matches("[0-9]")) {
-            score = 1;
+            frame.setFrameScore(Integer.parseInt(input));
         } else {
-            System.out.println("Invalid input. Frame will not be scored.");
+            System.out.println("Invalid input. Score for the first roll will be set to 0.");
+            frame.setFrameScore(0);
         }
 
-        return score;
+        return frame;
+    }
+
+    private Frame calculateSecondRoll(String input, Frame frame) {
+        return frame;
     }
 }

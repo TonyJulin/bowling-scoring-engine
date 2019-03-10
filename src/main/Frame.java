@@ -2,8 +2,10 @@ package main;
 
 public class Frame {
     private int frameScore = 0;
-    private String firstShot;
-    private String secondShot;
+
+    private Boolean isSpare;
+    private Boolean isStrike;
+
     private Frame previousFrame;
     private Frame nextFrame;
 
@@ -15,21 +17,6 @@ public class Frame {
         frameScore = score;
     }
 
-    public String getFirstShot() {
-        return firstShot;
-    }
-
-    public void setFirstShot(String firstShot) {
-        this.firstShot = firstShot;
-    }
-
-    public String getSecondShot() {
-        return secondShot;
-    }
-
-    public void setSecondShot(String secondShot) {
-        this.secondShot = secondShot;
-    }
 
     public Frame getPreviousFrame() {
         return previousFrame;
@@ -45,5 +32,21 @@ public class Frame {
 
     public void setNextFrame(Frame nextFrame) {
         this.nextFrame = nextFrame;
+    }
+
+    public Boolean getSpare() {
+        return isSpare;
+    }
+
+    public void setSpare(Boolean spare) {
+        isSpare = spare;
+    }
+
+    public Boolean getStrike() {
+        return isStrike;
+    }
+
+    public void setStrike(Boolean strike) {
+        isStrike = strike;
     }
 }
