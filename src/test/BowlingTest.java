@@ -33,13 +33,16 @@ public class BowlingTest {
 
     @Test
     public void testFrame() {
-//        Frame frame = new Frame();
-//        frame.setFrameScore(10);
-//        frame.setFirstShot("9");
-//        frame.setSecondShot("/");
-//
-//        Assert.assertEquals(10, frame.getFrameScore());
-//        Assert.assertEquals("9", frame.getFirstShot());
-//        Assert.assertEquals("/", frame.getSecondShot());
+        Frame frame = new Frame();
+        frame.setFrameScore(10);
+        Assert.assertEquals(10, frame.getFrameScore());
+
+        Assert.assertFalse(frame.getStrike());
+        frame.setStrike(true);
+        Assert.assertTrue(frame.getStrike());
+
+        Assert.assertFalse(frame.getSpare());
+        frame.setSpare(true);
+        Assert.assertTrue(frame.getSpare());
     }
 }

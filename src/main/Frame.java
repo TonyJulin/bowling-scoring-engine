@@ -3,8 +3,8 @@ package main;
 public class Frame {
     private int frameScore = 0;
 
-    private Boolean isSpare;
-    private Boolean isStrike;
+    private Boolean isSpare = false;
+    private Boolean isStrike = false;
 
     private Frame previousFrame;
     private Frame nextFrame;
