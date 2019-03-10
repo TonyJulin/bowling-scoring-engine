@@ -77,4 +77,62 @@ public class BowlingTest {
         Assert.assertEquals(0, frame.getFrameScore());
         Assert.assertFalse(frame.getSpare());
     }
+
+    @Test
+    public void testSecondRollStrike() {
+        Bowling bowling = new Bowling();
+        Frame frame = new Frame();
+
+        // Verify Strike
+        frame.setFrameScore(2);
+        frame = bowling.calculateSecondRoll("X", frame);
+        Assert.assertFalse(frame.getStrike());
+
+        frame.setFrameScore(0);
+        frame = bowling.calculateSecondRoll("X", frame);
+        Assert.assertTrue(frame.getStrike());
+    }
+
+    @Test
+    public void testSecondRollSpare() {
+        Bowling bowling = new Bowling();
+        Frame frame = new Frame();
+
+        frame = bowling.calculateSecondRoll("/", frame);
+        Assert.assertFalse(frame.getSpare());
+
+        frame.setFrameScore(5);
+        frame = bowling.calculateSecondRoll("/", frame);
+        Assert.assertTrue(frame.getSpare());
+    }
+
+    @Test
+    public void testSecondRollOpen() {
+        Bowling bowling = new Bowling();
+        Frame frame = new Frame();
+
+        frame = bowling.calculateSecondRoll("9", frame);
+        Assert.assertEquals(9, frame.getFrameScore());
+
+        frame.setFrameScore(6);
+        frame = bowling.calculateSecondRoll("4", frame);
+        Assert.assertEquals(10, frame.getFrameScore());
+
+        frame.setFrameScore(5);
+        frame = bowling.calculateSecondRoll("6", frame);
+        Assert.assertEquals(5, frame.getFrameScore());
+    }
+
+    @Test
+    public void testSecondRollInvalid() {
+        Bowling bowling = new Bowling();
+        Frame frame = new Frame();
+
+        frame = bowling.calculateSecondRoll("abcd", frame);
+        Assert.assertEquals(0, frame.getFrameScore());
+
+        frame.setFrameScore(9);
+        frame = bowling.calculateSecondRoll("abcd", frame);
+        Assert.assertEquals(9, frame.getFrameScore());
+    }
 }

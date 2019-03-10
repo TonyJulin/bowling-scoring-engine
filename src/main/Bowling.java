@@ -32,14 +32,18 @@ public class Bowling {
 
         while (frameNumber < 10 && !input.equals(QUIT)) {
             Frame frame = new Frame();
+
             frame = calculateFirstRoll(input, frame);
-            frame = calculateSecondRoll(input, frame);
+            if (!frame.getStrike()) {
+                frame = calculateSecondRoll(input, frame);
+            }
+            frames.add(frame);
 
             input = scanner.next();
             frameNumber++;
         }
-
-
+        
+        totalScore = calculateScore(frames);
         return totalScore;
     }
 
@@ -59,11 +63,19 @@ public class Bowling {
         return frame;
     }
 
-    private Frame calculateSecondRoll(String input, Frame frame) {
+    public Frame calculateSecondRoll(String input, Frame frame) {
         if (input.equals(STRIKE_UPPER) || input.equals(STRIKE_LOWER)) {
-            System.out.println("Cannot get a strike on the second roll of a frame. Score for this roll is 0.");
-        } else if (input.equals("SPARE")) {
-            frame.setSpare(true);
+            if (frame.getFrameScore() == 0) {
+                frame.setStrike(true);
+            } else {
+                System.out.println("Cannot score a strike with pins already knocked down. No points added to score.");
+            }
+        } else if (input.equals(SPARE)) {
+            if (frame.getFrameScore() > 0) {
+                frame.setSpare(true);
+            } else {
+                System.out.println("Cannot score a spare with no pins knocked down. No points added to score");
+            }
         } else if (input.matches("[0-9]")) {
             int parsedInput = Integer.parseInt(input);
             int totalFrameScore = frame.getFrameScore() + parsedInput;
@@ -75,6 +87,11 @@ public class Bowling {
         } else {
             System.out.println("Invalid input for the second roll: " + input);
         }
+
         return frame;
+    }
+
+    public int calculateScore(List<Frame> frames) {
+        return 0;
     }
 }
