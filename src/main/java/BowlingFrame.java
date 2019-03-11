@@ -1,6 +1,6 @@
-package main;
+package main.java;
 
-public class Frame {
+public class BowlingFrame {
     private int firstScore = 0;
     private int secondScore = 0;
 
